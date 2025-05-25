@@ -34,4 +34,38 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         atualizarBarraVidaGorila();
     }
+
+     btnAtaque.addEventListener("click", () => {
+        turnoCompleto(() => {
+            efeitoDano.style.display = "block";
+            vidaNinjas -= 8;
+            atualizarBarraVidaNinja();
+            mostrarMensagem(msgGorila, "Gorila atacou!");
+            mostrarMensagem(msgNinjas, "Ninjas recebem dano!");
+            setTimeout(() => {
+                efeitoDano.style.display = "none";
+            }, 1000);
+        });
+    });
+    btnCura.addEventListener("click", () => {
+        turnoCompleto(() => {
+            efeitoCura.style.display = "block";
+            vidaGorila += 8;
+            atualizarBarraVidaGorila();
+            mostrarMensagem(msgGorila, "Gorila se curou!");
+            setTimeout(() => {
+                efeitoCura.style.display = "none";
+            }, 1000);
+        });
+    });
+    btnDefesa.addEventListener("click", () => {
+        turnoCompleto(() => {
+            efeitoDefesa.style.display = "block";
+            defesaAtiva = true;
+            mostrarMensagem(msgGorila, "Gorila se defende!");
+            setTimeout(() => {
+                efeitoDefesa.style.display = "none";
+            }, 1000);
+        });
+    });
 });
