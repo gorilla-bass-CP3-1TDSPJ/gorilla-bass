@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
     const efeitoDano = document.getElementById("dano");
     const efeitoCura = document.getElementById("cura");
-
     const efeitoDefesa = document.getElementById("defesa");
+
     const msgGorila = document.getElementById("msg-gorila");
     const msgNinjas = document.getElementById("msg-ninja");
 
@@ -18,36 +18,73 @@ document.addEventListener("DOMContentLoaded", () => {
     let defesaAtiva = false;
     let jogando = false;
 
-    function atualizarBarraVidaNinja() {
-        vidaNinjas = Math.max(0, Math.min(vidaNinjas, 100));
-        vidaTotalNinja.style.width = vidaNinjas + "%";
-    }
-    function atualizarBarraVidaGorila() {
-        vidaGorila = Math.max(0, Math.min(vidaGorila, 100));
-        vidaTotalGorila.style.width = vidaGorila + "%";
-    }
-    function aplicarDanoGorila() {
-        if (defesaAtiva) {
-            defesaAtiva = false;
-        } else {
-            vidaGorila -= 5;
+    function verificarFimDeJogo() {
+        if (vidaNinjas <= 0) {
+            mostrarMensagem(msgGorila, "Gorila venceu!", true);
+            setTimeout(() => location.reload(), 5000);
+            return true;
+        } else if (vidaGorila <= 0) {
+            mostrarMensagem(msgNinjas, "Ninjas venceram!", true);
+            setTimeout(() => location.reload(), 5000);
+            return true;
         }
-        atualizarBarraVidaGorila();
+        return false;
+    }
+
+    function turnoCompleto(callback) {
+        if (jogando) return;
+        jogando = true;
+
+        callback();
+
+        setTimeout(() => {
+            if (verificarFimDeJogo()) return;
+
+            if (defesaAtiva) {
+                mostrarMensagem(msgNinjas, "Ninjas tentam atacar, mas o gorila defende!");
+                defesaAtiva = false; // Desativa após exibir mensagem de defesa
+            } else {
+                mostrarMensagem(msgNinjas, "Ninjas atacaram!");
+                aplicarDanoGorila();
+            }
+
+            setTimeout(() => {
+                if (!verificarFimDeJogo()) {
+                    jogando = false;
+                }
+            }, 1000);
+        }, 1000);
     }
 
     function mostrarMensagem(elemento, texto, fimDeJogo = false) {
         elemento.textContent = texto;
         elemento.style.display = "block";
+
         if (fimDeJogo) {
             elemento.classList.add("fim-jogo");
         } else {
-            setTimeout(() => {  
+            setTimeout(() => {
                 elemento.style.display = "none";
             }, 750);
         }
     }
 
-     btnAtaque.addEventListener("click", () => {
+    function atualizarBarraVidaNinja() {
+        vidaNinjas = Math.max(0, Math.min(vidaNinjas, 100));
+        vidaTotalNinja.style.width = vidaNinjas + "%";
+    }
+
+    function atualizarBarraVidaGorila() {
+        vidaGorila = Math.max(0, Math.min(vidaGorila, 100));
+        vidaTotalGorila.style.width = vidaGorila + "%";
+    }
+
+    function aplicarDanoGorila() {
+        vidaGorila -= 5;
+        atualizarBarraVidaGorila();
+    }
+
+    btnAtaque.addEventListener("click", () => {
         turnoCompleto(() => {
             efeitoDano.style.display = "block";
             vidaNinjas -= 8;
@@ -59,6 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 1000);
         });
     });
+
     btnCura.addEventListener("click", () => {
         turnoCompleto(() => {
             efeitoCura.style.display = "block";
@@ -70,6 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 1000);
         });
     });
+
     btnDefesa.addEventListener("click", () => {
         turnoCompleto(() => {
             efeitoDefesa.style.display = "block";
@@ -80,39 +119,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 1000);
         });
     });
-
-    function verificarFimDeJogo() {
-        if (vidaNinjas <= 0) {
-            mostrarMensagem(msgGorila, "Gorila venceu!", true);
-            setTimeout(() => location.reload(), 5000);
-            return true;
-        } else if (vidaGorila <= 0) {
-            mostrarMensagem(msgNinjas, "Ninjas venceram!", true);
-            setTimeout(() => location.reload(), 5000);
-            return true;
-        }
-    return false;
-    }
-    function turnoCompleto(callback) {
-        if (jogando) return;
-        jogando = true;
-        callback();
-        setTimeout(() => {
-            if (verificarFimDeJogo()) return;
-            if(defesaAtiva){
-                mostrarMensagem(msgNinjas, "Ninjas tentam atacar, mas gorila defende!");
-            }else{
-                mostrarMensagem(msgNinjas, "Ninjas atacaram!");
-                aplicarDanoGorila();
-            }
-           
-            setTimeout(() => {
-                if (!verificarFimDeJogo()) {
-                    jogando = false;
-                }
-            }, 1000);
-        }, 1000);
-    }
 
     atualizarBarraVidaGorila();
     atualizarBarraVidaNinja();
