@@ -68,4 +68,37 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 1000);
         });
     });
+
+    function verificarFimDeJogo() {
+        if (vidaNinjas <= 0) {
+            mostrarMensagem(msgGorila, "Gorila venceu!", true);
+            setTimeout(() => location.reload(), 5000);
+            return true;
+        } else if (vidaGorila <= 0) {
+            mostrarMensagem(msgNinjas, "Ninjas venceram!", true);
+            setTimeout(() => location.reload(), 5000);
+            return true;
+        }
+    return false;
+    }
+    function turnoCompleto(callback) {
+        if (jogando) return;
+        jogando = true;
+        callback();
+        setTimeout(() => {
+            if (verificarFimDeJogo()) return;
+            if(defesaAtiva){
+                mostrarMensagem(msgNinjas, "Ninjas tentam atacar, mas gorila defende!");
+            }else{
+                mostrarMensagem(msgNinjas, "Ninjas atacaram!");
+                aplicarDanoGorila();
+            }
+           
+            setTimeout(() => {
+                if (!verificarFimDeJogo()) {
+                    jogando = false;
+                }
+            }, 1000);
+        }, 1000);
+    }
 });
