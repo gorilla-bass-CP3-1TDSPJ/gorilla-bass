@@ -25,6 +25,34 @@
   transition: width 0.3s ease;
 }
 
+/*----- GORILA | CURA -----*/
+#gorila{
+    width: 100%;
+    height: auto;
+}
+#div-gorila{
+    position: relative;
+    width: 400px;
+    height: 400px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+.efeito-cura {
+    position: absolute;
+    top: -10vh;
+    left: 0;
+    pointer-events: none;
+    display: none;
+}
+.efeito-defesa {
+    position: absolute;
+    top: -12vh;
+    left: 15vw;
+    pointer-events: none;
+    display: none;
+}
+
 /*========= Ninjas | BARRA DE VIDA =========*/
 #vida-perdida-ninja {
   width: 90%;
