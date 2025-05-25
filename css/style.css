@@ -71,6 +71,24 @@
     transition: width 0.3s ease;
 }
 
+/*----- NINJAS | ATAQUES -----*/
+#ninjas{
+    display: block;
+}
+#div-ninjas{
+    width: 650px;
+    height: 650px;
+    position: relative;
+    display: inline-block;  
+}
+.efeito-dano {
+    position: absolute;
+    top: 0;
+    right: 0;
+    pointer-events: none;
+    display: none;
+}
+
 /*========== BOTOES ==========*/
 .botões{
     padding: 10vh 0;
