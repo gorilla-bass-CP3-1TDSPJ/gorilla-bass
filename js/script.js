@@ -35,6 +35,18 @@ document.addEventListener("DOMContentLoaded", () => {
         atualizarBarraVidaGorila();
     }
 
+    function mostrarMensagem(elemento, texto, fimDeJogo = false) {
+        elemento.textContent = texto;
+        elemento.style.display = "block";
+        if (fimDeJogo) {
+            elemento.classList.add("fim-jogo");
+        } else {
+            setTimeout(() => {  
+                elemento.style.display = "none";
+            }, 750);
+        }
+    }
+
      btnAtaque.addEventListener("click", () => {
         turnoCompleto(() => {
             efeitoDano.style.display = "block";
@@ -101,4 +113,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 1000);
         }, 1000);
     }
+
+    
 });
