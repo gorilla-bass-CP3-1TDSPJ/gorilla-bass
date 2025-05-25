@@ -1,0 +1,26 @@
+/*========== Gorila | BARRA DE VIDA ==========*/
+#barra-vida {
+  text-align: center;
+  background-color: #03160c;
+  width: 100vw;
+  height: 2vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#vida-perdida-gorila {
+  width: 90%;
+  height: 20px;
+  background-color: #970505;
+  border: 2px solid #000;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+#vida-inteira-gorila {
+  height: 100%;
+  background-color: #10941b;
+  width: 100%;
+  transition: width 0.3s ease;
+}
