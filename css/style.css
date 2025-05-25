@@ -42,3 +42,28 @@
     width: 100%;
     transition: width 0.3s ease;
 }
+
+/*========== BOTOES ==========*/
+.botões{
+    padding: 10vh 0;
+    text-align: center;
+    background-color: #03160c;
+}
+.botões img{
+    cursor: pointer;
+    margin: 0 2vh;
+    transition: transform 0.3s ease;
+}
+.botões img:hover{
+    transform: translateY(-15%);
+}
+.borda{  
+    display: flex;
+    align-items: flex-end;
+    padding: 0 35px;
+    justify-content: space-between;
+    background: url(../assets/floresta-Cenario.jpg);
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
